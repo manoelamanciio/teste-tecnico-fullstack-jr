@@ -16,12 +16,11 @@ class PollController extends Controller
                 'question' => $request->validated('question'),
             ]);
 
-            $options = array_map(
-                fn (string $text): array => ['text' => $text],
-                $request->validated('options')
-            );
-
-            $poll->options()->createMany($options);
+            foreach ($request->validated('options') as $optionText) {
+                $poll->options()->create([
+                  'text' => $optionText,
+           ]);
+}
 
             return $poll;
         });
