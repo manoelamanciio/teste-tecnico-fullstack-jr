@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PollOption extends Model
+class Vote extends Model
 {
     protected $fillable = [
         'poll_id',
-        'text',
+        'poll_option_id',
+        'voter_token',
     ];
 
     public function poll(): BelongsTo
@@ -18,8 +18,8 @@ class PollOption extends Model
         return $this->belongsTo(Poll::class);
     }
 
-    public function votes(): HasMany
+    public function option(): BelongsTo
     {
-        return $this->hasMany(Vote::class);
+        return $this->belongsTo(PollOption::class, 'poll_option_id');
     }
 }
