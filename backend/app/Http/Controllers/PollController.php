@@ -18,9 +18,9 @@ class PollController extends Controller
 
             foreach ($request->validated('options') as $optionText) {
                 $poll->options()->create([
-                  'text' => $optionText,
-           ]);
-}
+                    'text' => $optionText,
+                ]);
+            }
 
             return $poll;
         });
