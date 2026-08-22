@@ -18,3 +18,7 @@ Permitir a criacao de enquetes, o registro de votos e a atualizacao dos resultad
 Projeto em construcao.
 
 As instrucoes completas de instalacao, as decisoes tecnicas, o tempo de desenvolvimento e as dificuldades encontradas serao documentados conforme a implementacao evoluir.
+
+## Ambiente de desenvolvimento
+
+PHP, Composer e PostgreSQL sao executados com Docker Compose. Dessa forma, as versoes usadas no desenvolvimento permanecem iguais em diferentes computadores.
