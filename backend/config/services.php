@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'websocket' => [
+        'url' => env('WEBSOCKET_SERVER_URL', 'http://websocket:8080'),
+    ],
+
 ];

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Poll;
 use App\Models\Vote;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
 
 class VoteController extends Controller
 {
@@ -37,6 +39,18 @@ class VoteController extends Controller
                 $query->withCount('votes');
             },
         ]);
+
+        try {
+            Http::timeout(2)->post(
+                config('services.websocket.url').'/broadcast',
+                [
+                    'type' => 'vote.updated',
+                    'poll' => $poll,
+                ]
+            );
+        } catch (ConnectionException $exception) {
+            report($exception);
+        }
 
         return response()->json($poll, 201);
     }
