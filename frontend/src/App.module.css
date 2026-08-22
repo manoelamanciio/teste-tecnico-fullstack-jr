@@ -1,0 +1,21 @@
+.page {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 24px;
+}
+
+.card {
+    width: min(100%, 640px);
+    padding: 32px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgb(15 23 42 / 10%);
+}
+
+.label {
+    color: #7c3aed;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
