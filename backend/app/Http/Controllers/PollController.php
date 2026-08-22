@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\DB;
 
 class PollController extends Controller
 {
+    public function latest(): JsonResponse
+    {
+        $poll = Poll::with([
+            'options' => function ($query) {
+                $query->withCount('votes');
+            },
+        ])->latest()->first();
+
+        if (! $poll) {
+            return response()->json([
+                'message' => 'Nenhuma enquete encontrada.',
+            ], 404);
+        }
+
+        return response()->json($poll);
+    }
+
     public function store(StorePollRequest $request): JsonResponse
     {
         $poll = DB::transaction(function () use ($request) {
