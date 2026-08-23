@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getLatestPoll, submitVote } from '../../services/api'
 import PollResults from '../PollResults/PollResults'
 import PollVote from '../PollVote/PollVote'
+import usePollWebSocket from '../../hooks/usePollWebSocket'
+
 
 function getVoterToken() {
     let token = localStorage.getItem('voter-token')
@@ -20,6 +22,12 @@ function PollBoard() {
     const [loading, setLoading] = useState(true)
     const [submitting, setSubmitting] = useState(false)
     const [hasVoted, setHasVoted] = useState(false)
+
+    const handlePollUpdate = useCallback((updatedPoll) => {
+        setPoll(updatedPoll)
+    }, [])
+
+    usePollWebSocket(handlePollUpdate)
 
     useEffect(() => {
         async function loadPoll() {
