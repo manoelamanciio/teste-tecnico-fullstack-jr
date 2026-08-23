@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getLatestPoll, submitVote } from '../../services/api'
+import {
+    createPoll,
+    getLatestPoll,
+    submitVote,
+} from '../../services/api'
+import usePollWebSocket from '../../hooks/usePollWebSocket'
+import PollCreate from '../PollCreate/PollCreate'
 import PollResults from '../PollResults/PollResults'
 import PollVote from '../PollVote/PollVote'
-import usePollWebSocket from '../../hooks/usePollWebSocket'
-
 
 function getVoterToken() {
     let token = localStorage.getItem('voter-token')
@@ -33,6 +37,7 @@ function PollBoard() {
         async function loadPoll() {
             try {
                 const data = await getLatestPoll()
+
                 setPoll(data)
                 setHasVoted(
                     localStorage.getItem(`voted-poll-${data.id}`) === 'true',
@@ -46,6 +51,23 @@ function PollBoard() {
 
         loadPoll()
     }, [])
+
+    async function handleCreate(payload) {
+        setError('')
+
+        try {
+            const data = await createPoll(payload)
+
+            setPoll(data)
+            setHasVoted(false)
+
+            return true
+        } catch (requestError) {
+            setError(requestError.message)
+
+            return false
+        }
+    }
 
     async function handleVote(optionId) {
         setError('')
@@ -77,6 +99,8 @@ function PollBoard() {
 
     return (
         <>
+            <PollCreate onCreate={handleCreate} />
+
             {error && <p>{error}</p>}
 
             <PollVote
