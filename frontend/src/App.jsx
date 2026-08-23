@@ -1,3 +1,4 @@
+import PollBoard from './components/PollBoard/PollBoard'
 import styles from './App.module.css'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
             <section className={styles.card}>
                 <span className={styles.label}>Enquetes ao vivo</span>
                 <h1>Mural de Enquetes</h1>
-                <p>Crie uma enquete, vote e acompanhe os resultados em tempo real.</p>
+                <PollBoard />
             </section>
         </main>
     )
