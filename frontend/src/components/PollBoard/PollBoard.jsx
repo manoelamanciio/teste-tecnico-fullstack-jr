@@ -93,25 +93,27 @@ function PollBoard() {
         return <p>Carregando enquete...</p>
     }
 
-    if (!poll) {
-        return <p>{error}</p>
-    }
-
     return (
         <>
             <PollCreate onCreate={handleCreate} />
 
             {error && <p>{error}</p>}
 
-            <PollVote
-                disabled={submitting || hasVoted}
-                onVote={handleVote}
-                poll={poll}
-            />
+            {poll ? (
+                <>
+                    <PollVote
+                        disabled={submitting || hasVoted}
+                        onVote={handleVote}
+                        poll={poll}
+                    />
 
-            {hasVoted && <p>Seu voto já foi registrado.</p>}
+                    {hasVoted && <p>Seu voto já foi registrado.</p>}
 
-            <PollResults poll={poll} />
+                    <PollResults poll={poll} />
+                </>
+            ) : (
+                <p>Crie a primeira enquete para começar.</p>
+            )}
         </>
     )
 }
