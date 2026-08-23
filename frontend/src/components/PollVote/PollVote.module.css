@@ -1,0 +1,44 @@
+.form {
+    display: grid;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.form fieldset {
+    padding: 0;
+    border: 0;
+}
+
+.form legend {
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.options {
+    display: grid;
+    gap: 10px;
+}
+
+.option {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.form button {
+    justify-self: start;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 8px;
+    background: #7c3aed;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.form button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
